@@ -2,33 +2,35 @@
   <div id="app">
     <v-app>
       <div class="navbar">
-        <button
-          type="button"
+        <el-button
+          type="info"
           @click="component = 'GoogleChart'">
-
           Google chart
-        </button>
-      
-        <button
-          type="button"
+        </el-button>
+
+        <el-button
+          type="info"
           @click="component = 'Knob'">
-
           Knob
-        </button>
-      
-        <button
-          type="button"
+        </el-button>
+
+        <el-button
+          type="info"
           @click="component = 'InputPanel'">
-
           Input Panel (vue mdc adapter)
-        </button>
-      
-        <button
-          type="button"
-          @click="component = 'VuetifyInp'">
+        </el-button>
 
+        <el-button
+          type="info"
+          @click="component = 'VuetifyInp'">
           Input Panel (Vuetify)
-        </button>
+        </el-button>
+
+        <el-button
+          type="info"
+          @click="component = 'ElementInp'">
+          Input Panel (element)
+        </el-button>
       </div>
 
       <div class="main-container">
@@ -47,6 +49,7 @@ import GoogleChart from "./components/GoogleChart.vue";
 import Knob from "./components/Knob.vue";
 import InputPanel from "./components/vue-mdc-adapter/InputPanel.vue";
 import VuetifyInp from "./components/vuetify/VuetifyInp.vue";
+import ElementInp from "./components/element/ElementInp.vue";
 
 export default {
   name: "app",
@@ -61,7 +64,8 @@ export default {
     GoogleChart,
     Knob,
     InputPanel,
-    VuetifyInp
+    VuetifyInp,
+    ElementInp
   }
 };
 </script>
