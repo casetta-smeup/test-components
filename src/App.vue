@@ -31,6 +31,12 @@
           @click="component = 'ElementInp'">
           Input Panel (element)
         </el-button>
+
+        <el-button
+          type="info"
+          @click="component = 'element-data-table'">
+          DataTable (element)
+        </el-button>
       </div>
 
       <div class="main-container">
@@ -50,6 +56,7 @@ import Knob from "./components/Knob.vue";
 import InputPanel from "./components/vue-mdc-adapter/InputPanel.vue";
 import VuetifyInp from "./components/vuetify/VuetifyInp.vue";
 import ElementInp from "./components/element/ElementInp.vue";
+import ElementDataTable from "./components/element/DataTable.vue";
 
 export default {
   name: "app",
@@ -65,7 +72,8 @@ export default {
     Knob,
     InputPanel,
     VuetifyInp,
-    ElementInp
+    ElementInp,
+    ElementDataTable
   }
 };
 </script>
