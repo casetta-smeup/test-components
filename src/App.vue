@@ -1,28 +1,81 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <v-app>
+      <div class="navbar">
+        <button
+          type="button"
+          @click="component = 'GoogleChart'">
+
+          Google chart
+        </button>
+      
+        <button
+          type="button"
+          @click="component = 'Knob'">
+
+          Knob
+        </button>
+      
+        <button
+          type="button"
+          @click="component = 'InputPanel'">
+
+          Input Panel (vue mdc adapter)
+        </button>
+      
+        <button
+          type="button"
+          @click="component = 'VuetifyInp'">
+
+          Input Panel (Vuetify)
+        </button>
+      </div>
+
+      <div class="main-container">
+        <component
+          v-if="component"
+          :is="component">
+
+        </component>
+      </div>
+    </v-app>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GoogleChart from "./components/GoogleChart.vue";
+import Knob from "./components/Knob.vue";
+import InputPanel from "./components/vue-mdc-adapter/InputPanel.vue";
+import VuetifyInp from "./components/vuetify/VuetifyInp.vue";
 
 export default {
-  name: 'app',
+  name: "app",
+
+  data() {
+    return {
+      component: null
+    };
+  },
+
   components: {
-    HelloWorld
+    GoogleChart,
+    Knob,
+    InputPanel,
+    VuetifyInp
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  padding: 1rem;
+}
+
+.main-container {
+  margin-top: 1rem;
+}
+
+button:not(:first-child) {
+  margin: 0 0.5rem;
 }
 </style>
