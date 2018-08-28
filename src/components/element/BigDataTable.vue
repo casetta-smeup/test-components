@@ -19,21 +19,10 @@
         ></el-table-column>
 
         <el-table-column
-          prop="title"
-          label="Title"
-          :sortable="sortEnabled"
-        ></el-table-column>
-
-        <el-table-column
-          prop="date"
-          label="Date"
-          width="180"
-          :sortable="sortEnabled"
-        ></el-table-column>
-
-        <el-table-column
-          prop="director"
-          label="Director"
+          v-for="column in columns"
+          :key="column"
+          :prop="column"
+          :label="column"
           :sortable="sortEnabled"
         ></el-table-column>
       </el-table>
@@ -45,7 +34,7 @@
 import mockedRows from "@/mock/dataTable";
 
 export default {
-  name: "element-data-table",
+  name: "big-data-table",
 
   data() {
     return {
@@ -53,7 +42,8 @@ export default {
       sortEnabled: false,
       stripeEnabled: true,
       multiSelectionEnabled: false,
-      tableData: mockedRows.starWarRows
+      columns: mockedRows.columns,
+      tableData: mockedRows.rows,
     };
   }
 };

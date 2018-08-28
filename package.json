@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "element-ui": "^2.4.5",
+    "faker": "^4.1.0",
     "svg-knob": "^1.7.0",
     "vue": "^2.5.17",
     "vue-mdc-adapter": "^0.18.1",

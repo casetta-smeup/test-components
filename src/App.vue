@@ -37,6 +37,18 @@
           @click="component = 'element-data-table'">
           DataTable (element)
         </el-button>
+
+        <el-button
+          type="info"
+          @click="component = 'big-data-table'">
+          DataTable performance
+        </el-button>
+
+        <el-button
+          type="info"
+          @click="component = 'smeup-data-table'">
+          DataTable (smeup)
+        </el-button>
       </div>
 
       <div class="main-container">
@@ -57,6 +69,8 @@ import InputPanel from "./components/vue-mdc-adapter/InputPanel.vue";
 import VuetifyInp from "./components/vuetify/VuetifyInp.vue";
 import ElementInp from "./components/element/ElementInp.vue";
 import ElementDataTable from "./components/element/DataTable.vue";
+import BigDataTable from "./components/element/BigDataTable.vue";
+import SmeupDataTable from "./components/smeup/SmeupDataTable.vue";
 
 export default {
   name: "app",
@@ -73,7 +87,9 @@ export default {
     InputPanel,
     VuetifyInp,
     ElementInp,
-    ElementDataTable
+    ElementDataTable,
+    BigDataTable,
+    SmeupDataTable
   }
 };
 </script>
