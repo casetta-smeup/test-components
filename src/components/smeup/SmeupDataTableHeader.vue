@@ -9,8 +9,15 @@ th {
     <tr>
       <th
         v-for="col in columns"
-        :key="col.c"
-      >{{ col.d }}</th>
+        :key="col.c">
+
+        {{ col.d }}
+
+        <v-text-field
+          v-model="col.filterValue"
+          v-if="filterable">
+        </v-text-field>
+      </th>
     </tr>
   </thead>
 </template>
@@ -20,6 +27,6 @@ th {
 export default {
   name: "smeup-data-table-header",
 
-  props: ["columns"]
+  props: ["columns", "filterable"]
 };
 </script>

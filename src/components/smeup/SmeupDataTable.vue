@@ -1,13 +1,25 @@
+<style scoped>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+</style>
+
 <template>
   <div class="MAT">
+    <div class="lolz">
+      <el-checkbox v-model="filterable">Filtri</el-checkbox>
+    </div>
+
     <table>
       <smeup-data-table-header
         :columns="columns"
+        :filterable="filterable"
       ></smeup-data-table-header>
 
       <smeup-data-table-body
         :columns="columns"
-        :rows="rows"
+        :rows="filteredRows"
       ></smeup-data-table-body>
     </table>
   </div>
@@ -27,15 +39,17 @@ export default {
 
   data() {
     return {
+      filterable: false,
+
       columns: [
-        { c: "STR001", d: "NR", p: "", t: "NR" },
-        { c: "STR002", d: "NR", p: "", t: "NR" },
-        { c: "STR003", d: "NR neg.(-n)", p: "", t: "NR" },
-        { c: "STR004", d: "NR neg.(n-)", p: "", t: "NR" },
-        { c: "STR006", d: "NR (dec.sep: ,)", p: "", t: "NR" },
-        { c: "STR007", d: "Oggetto", p: "COL", t: "CN" },
-        { c: "STR008", d: "Oggetto", p: "", t: "NR" },
-        { c: "STR009", d: "Percentuale", p: "P", t: "NR" }
+        { filterValue: "", c: "STR001", d: "NR", p: "", t: "NR" },
+        { filterValue: "", c: "STR002", d: "NR", p: "", t: "NR" },
+        { filterValue: "", c: "STR003", d: "NR neg.(-n)", p: "", t: "NR" },
+        { filterValue: "", c: "STR004", d: "NR neg.(n-)", p: "", t: "NR" },
+        { filterValue: "", c: "STR006", d: "NR (dec.sep: ,)", p: "", t: "NR" },
+        { filterValue: "", c: "STR007", d: "Oggetto", p: "COL", t: "CN" },
+        { filterValue: "", c: "STR008", d: "Oggetto", p: "", t: "NR" },
+        { filterValue: "", c: "STR009", d: "Percentuale", p: "P", t: "NR" }
       ],
       rows: [
         {
@@ -220,14 +234,42 @@ export default {
         }
       ]
     };
+  },
+
+  computed: {
+    filteredRows() {
+      return this.rows.filter(r => {
+        const columnsWithFilter = this.columns.filter(
+          c => c.filterValue.length > 0
+        );
+
+        if (columnsWithFilter.length > 0) {
+          // there is atleast a filter
+          return (
+            columnsWithFilter.filter(c => {
+              let rowCell;
+              for (let i = 0; i < r.content.entry.length; i++) {
+                const entry = r.content.entry[i];
+                if (entry.key === c.c) {
+                  rowCell = entry;
+                  break;
+                }
+              }
+
+              if (rowCell) {
+                return (
+                  rowCell.value.c && rowCell.value.c.includes(c.filterValue)
+                );
+              } else {
+                return false;
+              }
+            }).length == columnsWithFilter.length
+          );
+        }
+
+        return true;
+      });
+    }
   }
 };
 </script>
-
-<style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-</style>
-

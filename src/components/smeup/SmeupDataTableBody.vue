@@ -44,7 +44,7 @@ tbody tr td {
 export default {
   name: "smeup-data-table-body",
 
-  props: ["columns", "rows"],
+  props: ["columns", "rows", "setup"],
 
   data() {
     return {};
