@@ -52,13 +52,7 @@ export default {
 
   methods: {
     getCellValue(columnCode, row) {
-      const filteredRow = row.content.entry.filter(e => e.key === columnCode);
-
-      if (filteredRow.length > 0) {
-        return filteredRow[0].value.c;
-      }
-
-      return "";
+      return row.content[columnCode].c;
     },
 
     onCellClick(column, row) {
