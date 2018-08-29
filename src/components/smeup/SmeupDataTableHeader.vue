@@ -9,10 +9,9 @@ th {
     <tr>
       <th
         v-for="col in columns"
-        :key="col.c"
-        @click="onCellClick(col)">
+        :key="col.c">
 
-        <span>{{ col.d }}</span>
+        <span @click="onCellClick(col)">{{ col.d }}</span>
 
         <v-text-field
           v-model="col.filterValue"
