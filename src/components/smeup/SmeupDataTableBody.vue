@@ -3,12 +3,12 @@ tr {
   margin: 0px;
 }
 
-tr:nth-child(even) {
-  background-color: #f2f2f2;
+tr:hover {
+  background-color: lightyellow;
 }
 
-tr.highlight {
-  background-color: lightyellow;
+tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
 tr.selected {
@@ -26,9 +26,7 @@ tbody tr td {
     <tr
       v-for="(row, index) in rows"
       :key="index"
-      @mouseover="onRowMouseOver(row)"
-      @mouseout="onRowMouseOut(row)"
-      :class="{ highlight: row.mouseOver, selected: row.selected }"
+      :class="{ selected: row.selected }"
     >
     
       <td
@@ -57,18 +55,11 @@ export default {
 
     onCellClick(column, row) {
       // unselecting all rows
-      this.rows.forEach(row => {
-        row.selected = false;
-      });
+      this.rows
+        .filter(row => row.selected)
+        .forEach(row => (row.selected = false));
+
       row.selected = true;
-    },
-
-    onRowMouseOver(row) {
-      row.mouseOver = true;
-    },
-
-    onRowMouseOut(row) {
-      row.mouseOver = false;
     }
   }
 };

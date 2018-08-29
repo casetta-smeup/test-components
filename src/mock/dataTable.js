@@ -104,7 +104,6 @@ const dataTableCols = [
 
 const dataTableFewRows = [
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "005", p: "", t: "NR" },
@@ -120,7 +119,6 @@ const dataTableFewRows = [
     }
   },
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "001", p: "", t: "NR" },
@@ -136,7 +134,6 @@ const dataTableFewRows = [
     }
   },
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "001", p: "", t: "NR" },
@@ -152,7 +149,6 @@ const dataTableFewRows = [
     }
   },
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "002", p: "", t: "NR" },
@@ -168,7 +164,6 @@ const dataTableFewRows = [
     }
   },
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "002", p: "", t: "NR" },
@@ -184,7 +179,6 @@ const dataTableFewRows = [
     }
   },
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "002", p: "", t: "NR" },
@@ -200,7 +194,6 @@ const dataTableFewRows = [
     }
   },
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "002", p: "", t: "NR" },
@@ -216,7 +209,6 @@ const dataTableFewRows = [
     }
   },
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "002", p: "", t: "NR" },
@@ -232,7 +224,6 @@ const dataTableFewRows = [
     }
   },
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "001", p: "", t: "NR" },
@@ -248,7 +239,6 @@ const dataTableFewRows = [
     }
   },
   {
-    mouseOver: false,
     selected: false,
     content: {
       STR001: { c: "001", p: "", t: "NR" },
@@ -265,25 +255,34 @@ const dataTableFewRows = [
   }
 ];
 
+const dataTableManyCols = new Array();
+
+for (let i = 0; i < 20; i++) {
+  dataTableManyCols.push({
+    c: "STR00" + i,
+    d: faker.random.word(),
+    p: "",
+    t: "",
+    filterValue: "",
+    sortMode: "D"
+  });
+}
+
 const dataTableManyRows = new Array();
 
-for (let i = 0; i < 5000; i++) {
-  dataTableManyRows.push({
+for (let i = 0; i < 1000; i++) {
+  const obj = {
     mouseOver: false,
     selected: false,
     content: {
-      STR001: { c: faker.random.word(), p: "", t: "NR" },
-      STR002: { c: faker.random.word(), p: "", t: "NR" },
-      STR003: { c: faker.random.word(), p: "", t: "NR" },
-      STR004: { c: faker.random.word(), p: "", t: "NR" },
-      STR006: { c: faker.random.word(), p: "", t: "NR" },
-      STR007: { c: faker.random.word(), p: "COL", t: "CN" },
-      STR008: { c: faker.random.word(), p: "", t: "NR" },
-      STR009: { c: faker.random.word(), p: "P", t: "NR" },
       RowId: { c: i, p: "", t: "NR" },
       ID: { c: i, p: "", t: "NR" }
     }
-  });
+  }
+
+  dataTableManyCols.forEach(col => obj.content[col.c] = { c: faker.random.word(), p: "", t: "" })
+
+  dataTableManyRows.push(obj);
 }
 
 
@@ -293,7 +292,8 @@ export default {
   rows,
   dataTableCols,
   dataTableFewRows,
-  dataTableManyRows
+  dataTableManyCols,
+  dataTableManyRows,
 };
 
 

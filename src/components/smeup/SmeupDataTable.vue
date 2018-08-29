@@ -1,4 +1,8 @@
 <style scoped>
+.MAT {
+  overflow-x: auto;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -133,9 +137,13 @@ export default {
 
   methods: {
     onBigDataChange() {
+      this.sortByColumn = null;
+
       if (this.manyRows) {
+        this.columns = mockedData.dataTableManyCols;
         this.rows = mockedData.dataTableManyRows;
       } else {
+        this.columns = mockedData.dataTableCols;
         this.rows = mockedData.dataTableFewRows;
       }
     },
