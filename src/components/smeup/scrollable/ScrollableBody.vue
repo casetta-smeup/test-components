@@ -1,7 +1,8 @@
 <style>
 table {
-  width: 100%;
   border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
 }
 
 .scrollable-body {
@@ -9,6 +10,23 @@ table {
 }
 
 .scrollable-body table thead {
+  height: 0px;
+}
+
+.scrollable-body table thead > tr {
+  height: 0px;
+}
+
+.scrollable-body table thead > tr > th {
+  height: 0px;
+  border-bottom-width: 0px;
+  border-top-width: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  outline: 0 none;
+}
+
+.scrollable-body table thead > tr > th > span {
   display: none;
 }
 </style>
@@ -16,7 +34,9 @@ table {
 <template>
   <div
     class="scrollable-body"
-    :style="scrollableBodyStyle">
+    :style="scrollableBodyStyle"
+    @scroll="onTableScroll"
+  >
     <table>
       <smeup-data-table-header
         :columns="columns"
@@ -56,7 +76,7 @@ export default {
         }
 
         if (this.scrollConfig.scrollWidth) {
-          // TODO
+          obj.width = this.scrollConfig.scrollWidth + "px";
         }
       }
 
@@ -69,6 +89,12 @@ export default {
     const newWidths = Array.from(ths).map(th => th.offsetWidth);
 
     newWidths.forEach((w, index) => (this.columns[index].width = w + "px"));
+  },
+
+  methods: {
+    onTableScroll($event) {
+      this.$emit("scroll", $event.target.scrollLeft);
+    }
   }
 };
 </script>

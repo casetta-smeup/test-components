@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 .scrollable-header {
   overflow: hidden;
 }
@@ -10,7 +10,7 @@ table {
 
 <template>
   <div class="scrollable-header">
-    <table>
+    <table :style="tableStyle">
       <smeup-data-table-header
         :columns="columns"
         :filterable="filterable"
@@ -32,6 +32,14 @@ export default {
     SmeupDataTableHeader
   },
 
-  props: ["columns", "filterable", "scrollConfig", "sortable"]
+  props: ["columns", "filterable", "scrollConfig", "sortable"],
+
+  computed: {
+    tableStyle() {
+      return {
+        marginLeft: "-" + this.scrollConfig.scrollLeft + "px"
+      };
+    }
+  }
 };
 </script>

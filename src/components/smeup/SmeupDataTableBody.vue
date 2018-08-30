@@ -3,21 +3,21 @@ tr {
   margin: 0px;
 }
 
-tr:hover {
-  background-color: lightyellow;
-}
-
 tr:nth-child(even) {
   background-color: #f2f2f2;
-}
-
-tr.selected {
-  background-color: lightslategrey;
 }
 
 tbody tr td {
   padding: 5px;
   border: 1px solid black;
+}
+
+tr:hover {
+  background-color: lightyellow;
+}
+
+tr.selected {
+  background-color: lightslategrey;
 }
 </style>
 

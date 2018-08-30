@@ -11,6 +11,10 @@ table {
 .scrollable-header {
   overflow: hidden;
 }
+
+.scroll-radio {
+  margin-top: 1rem;
+}
 </style>
 
 <template>
@@ -19,8 +23,15 @@ table {
       <el-checkbox v-model="manyRows" @change="onBigDataChange">Big data</el-checkbox>
       <el-checkbox v-model="filterable">Filtri</el-checkbox>
       <el-checkbox v-model="sortable">Sort</el-checkbox>
-      <el-checkbox v-model="scroll.enabled">Scroll</el-checkbox>
       <el-checkbox v-if="false" v-model="pagination.enabled">Pagination</el-checkbox>
+
+      <div class="scroll-radio">
+        <el-radio-group v-model="scroll.scrollMode" @change="onScrollModeChange" class="scroll-radio">
+          <el-radio :label="0">Nessuno</el-radio>
+          <el-radio :label="1">Verticale</el-radio>
+          <el-radio :label="2">Orizzontale</el-radio>
+        </el-radio-group>
+      </div>
     </div>
 
     <smeup-data-table-paginator
@@ -29,24 +40,28 @@ table {
       :config="pagination"
     ></smeup-data-table-paginator>
 
-    <scrollable-header
-      v-if="scroll.enabled"
-      :scrollConfig="scroll"
-      :columns="columns"
-      :filterable="filterable"
-      :sortable="sortable"
-    ></scrollable-header>
 
-    <scrollable-body
+    <div
+      class="scroll-table-wrapper"
       v-if="scroll.enabled"
-      :scrollConfig="scroll"
-      :columns="columns"
-      :rows="filteredRows"
-      :filterable="filterable"
-      :sortable="sortable"
-    ></scrollable-body>
+      :style="scrollTableWrapperStyle"
+    >
+      <scrollable-header
+        :scrollConfig="scroll"
+        :columns="columns"
+        :filterable="filterable"
+        :sortable="sortable"
+      ></scrollable-header>
 
-    {{ scroll.columnsWidth }}
+      <scrollable-body
+        :scrollConfig="scroll"
+        :columns="columns"
+        :rows="filteredRows"
+        :filterable="filterable"
+        :sortable="sortable"
+        @scroll="onBodyScroll"
+      ></scrollable-body>
+    </div>
 
     <table v-if="!scroll.enabled">
       <smeup-data-table-header
@@ -102,9 +117,11 @@ export default {
 
       scroll: {
         enabled: false,
-        scrollWidth: 500,
-        scrollHeight: 200,
-        columnsWidth: []
+        scrollMode: 0,
+        scrollWidth: null,
+        scrollHeight: null,
+        columnsWidth: [],
+        scrollLeft: 0
       },
 
       columns: mockedData.dataTableCols,
@@ -170,15 +187,14 @@ export default {
       return filteredRows;
     },
 
-    tableStyle() {
-      const style = {};
+    scrollTableWrapperStyle() {
+      const obj = {};
 
-      if (this.scroll.enabled) {
-        style.width = this.scroll.scrollWidth;
-        style.height = this.scroll.scrollHeight;
+      if (this.scroll.enabled && this.scroll.scrollWidth) {
+        obj.width = this.scroll.scrollWidth + "px";
       }
 
-      return style;
+      return obj;
     }
   },
 
@@ -192,6 +208,39 @@ export default {
       } else {
         this.columns = mockedData.dataTableCols;
         this.rows = mockedData.dataTableFewRows;
+      }
+    },
+
+    onBodyScroll($event) {
+      this.scroll.scrollLeft = $event;
+    },
+
+    onScrollModeChange() {
+      // resetting options
+      this.scroll.enabled = false;
+      this.scroll.scrollWidth = null;
+      this.scroll.scrollHeight = null;
+      this.scroll.columnsWidth = [];
+      this.scroll.scrollLeft = 0;
+
+      // resetting columns width
+      this.columns.forEach(c => (c.width = "auto"));
+
+      switch (this.scroll.scrollMode) {
+        case 1:
+          this.scroll.enabled = true;
+          this.scroll.scrollHeight = 150;
+          break;
+
+        case 2:
+          this.scroll.enabled = true;
+          this.scroll.scrollWidth = 500;
+          this.columns.forEach(c => (c.width = "200px"));
+          // this.columns.forEach(c => console.log(c.width));
+          break;
+
+        default:
+          break;
       }
     },
 
