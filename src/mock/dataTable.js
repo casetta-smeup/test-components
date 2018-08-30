@@ -42,7 +42,8 @@ const dataTableCols = [
     p: "",
     t: "NR",
     filterValue: "",
-    sortMode: "D"
+    sortMode: "D",
+    width: 'auto'
   },
   {
     c: "STR002",
@@ -50,7 +51,8 @@ const dataTableCols = [
     p: "",
     t: "NR",
     filterValue: "",
-    sortMode: "D"
+    sortMode: "D",
+    width: 'auto'
   },
   {
     c: "STR003",
@@ -58,7 +60,8 @@ const dataTableCols = [
     p: "",
     t: "NR",
     filterValue: "",
-    sortMode: "D"
+    sortMode: "D",
+    width: 'auto'
   },
   {
     c: "STR004",
@@ -66,7 +69,8 @@ const dataTableCols = [
     p: "",
     t: "NR",
     filterValue: "",
-    sortMode: "D"
+    sortMode: "D",
+    width: 'auto'
   },
   {
     c: "STR006",
@@ -74,7 +78,8 @@ const dataTableCols = [
     p: "",
     t: "NR",
     filterValue: "",
-    sortMode: "D"
+    sortMode: "D",
+    width: 'auto'
   },
   {
     c: "STR007",
@@ -82,7 +87,8 @@ const dataTableCols = [
     p: "COL",
     t: "CN",
     filterValue: "",
-    sortMode: "D"
+    sortMode: "D",
+    width: 'auto'
   },
   {
     c: "STR008",
@@ -90,7 +96,8 @@ const dataTableCols = [
     p: "",
     t: "NR",
     filterValue: "",
-    sortMode: "D"
+    sortMode: "D",
+    width: 'auto'
   },
   {
     c: "STR009",
@@ -98,7 +105,8 @@ const dataTableCols = [
     p: "P",
     t: "NR",
     filterValue: "",
-    sortMode: "D"
+    sortMode: "D",
+    width: 'auto'
   }
 ];
 

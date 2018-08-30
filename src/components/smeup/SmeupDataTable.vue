@@ -7,6 +7,10 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
+
+.scrollable-header {
+  overflow: hidden;
+}
 </style>
 
 <template>
@@ -15,6 +19,7 @@ table {
       <el-checkbox v-model="manyRows" @change="onBigDataChange">Big data</el-checkbox>
       <el-checkbox v-model="filterable">Filtri</el-checkbox>
       <el-checkbox v-model="sortable">Sort</el-checkbox>
+      <el-checkbox v-model="scroll.enabled">Scroll</el-checkbox>
       <el-checkbox v-if="false" v-model="pagination.enabled">Pagination</el-checkbox>
     </div>
 
@@ -24,11 +29,31 @@ table {
       :config="pagination"
     ></smeup-data-table-paginator>
 
-    <table>
+    <scrollable-header
+      v-if="scroll.enabled"
+      :scrollConfig="scroll"
+      :columns="columns"
+      :filterable="filterable"
+      :sortable="sortable"
+    ></scrollable-header>
+
+    <scrollable-body
+      v-if="scroll.enabled"
+      :scrollConfig="scroll"
+      :columns="columns"
+      :rows="filteredRows"
+      :filterable="filterable"
+      :sortable="sortable"
+    ></scrollable-body>
+
+    {{ scroll.columnsWidth }}
+
+    <table v-if="!scroll.enabled">
       <smeup-data-table-header
         :columns="columns"
         :filterable="filterable"
         :sortable="sortable"
+        :scroll="scroll"
         @sortby="onSort($event)"
       ></smeup-data-table-header>
 
@@ -44,6 +69,8 @@ table {
 import SmeupDataTableHeader from "./SmeupDataTableHeader.vue";
 import SmeupDataTableBody from "./SmeupDataTableBody.vue";
 import SmeupDataTablePaginator from "./SmeupDataTablePaginator.vue";
+import ScrollableHeader from "./scrollable/ScrollableHeader.vue";
+import ScrollableBody from "./scrollable/ScrollableBody.vue";
 
 import mockedData from "@/mock/dataTable";
 
@@ -53,7 +80,9 @@ export default {
   components: {
     SmeupDataTableHeader,
     SmeupDataTableBody,
-    SmeupDataTablePaginator
+    SmeupDataTablePaginator,
+    ScrollableHeader,
+    ScrollableBody
   },
 
   data() {
@@ -69,6 +98,13 @@ export default {
         enabled: false,
         pageSize: 5,
         currentPage: 1
+      },
+
+      scroll: {
+        enabled: false,
+        scrollWidth: 500,
+        scrollHeight: 200,
+        columnsWidth: []
       },
 
       columns: mockedData.dataTableCols,
@@ -125,13 +161,24 @@ export default {
           this.pagination.currentPage;
         const end = this.pagination.pageSize * this.pagination.currentPage;
 
-        console.log("start", start);
-        console.log("end", end);
+        // console.log("start", start);
+        // console.log("end", end);
 
         return filteredRows.splice(start, end);
       }
 
       return filteredRows;
+    },
+
+    tableStyle() {
+      const style = {};
+
+      if (this.scroll.enabled) {
+        style.width = this.scroll.scrollWidth;
+        style.height = this.scroll.scrollHeight;
+      }
+
+      return style;
     }
   },
 

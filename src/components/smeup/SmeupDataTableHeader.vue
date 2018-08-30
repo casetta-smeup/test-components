@@ -9,7 +9,8 @@ th {
     <tr>
       <th
         v-for="col in columns"
-        :key="col.c">
+        :key="col.c"
+        :style="{ width: col.width }">
 
         <span @click="onCellClick(col)">{{ col.d }}</span>
 
@@ -27,7 +28,7 @@ th {
 export default {
   name: "smeup-data-table-header",
 
-  props: ["columns", "filterable", "sortable"],
+  props: ["columns", "filterable", "sortable", "scroll"],
 
   methods: {
     onCellClick(col) {
