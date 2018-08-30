@@ -26,7 +26,8 @@ table {
   outline: 0 none;
 }
 
-.scrollable-body table thead > tr > th > span {
+.scrollable-body table thead > tr > th > span,
+.scrollable-body table thead > tr > th > .v-input {
   display: none;
 }
 </style>

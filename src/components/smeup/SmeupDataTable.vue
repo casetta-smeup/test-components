@@ -30,6 +30,7 @@ table {
           <el-radio :label="0">Nessuno</el-radio>
           <el-radio :label="1">Verticale</el-radio>
           <el-radio :label="2">Orizzontale</el-radio>
+          <el-radio :label="3">Entrambi</el-radio>
         </el-radio-group>
       </div>
     </div>
@@ -51,6 +52,7 @@ table {
         :columns="columns"
         :filterable="filterable"
         :sortable="sortable"
+        @sortby="onSort"
       ></scrollable-header>
 
       <scrollable-body
@@ -69,7 +71,7 @@ table {
         :filterable="filterable"
         :sortable="sortable"
         :scroll="scroll"
-        @sortby="onSort($event)"
+        @sortby="onSort"
       ></smeup-data-table-header>
 
       <smeup-data-table-body
@@ -237,6 +239,13 @@ export default {
           this.scroll.scrollWidth = 500;
           this.columns.forEach(c => (c.width = "200px"));
           // this.columns.forEach(c => console.log(c.width));
+          break;
+
+        case 3:
+          this.scroll.enabled = true;
+          this.scroll.scrollHeight = 150;
+          this.scroll.scrollWidth = 500;
+          this.columns.forEach(c => (c.width = "200px"));
           break;
 
         default:

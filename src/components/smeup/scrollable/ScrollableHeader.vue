@@ -16,7 +16,7 @@ table {
         :filterable="filterable"
         :sortable="sortable"
         :scroll="scrollConfig"
-        @sortby="onSort($event)"
+        @sortby="onSort"
       ></smeup-data-table-header>
     </table>
   </div>
@@ -39,6 +39,12 @@ export default {
       return {
         marginLeft: "-" + this.scrollConfig.scrollLeft + "px"
       };
+    }
+  },
+
+  methods: {
+    onSort($event) {
+      this.$emit("sortby", $event);
     }
   }
 };
