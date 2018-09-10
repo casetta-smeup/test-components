@@ -86,10 +86,12 @@ export default {
   },
 
   mounted() {
-    const ths = this.$el.querySelectorAll("tr:first-child > td");
-    const newWidths = Array.from(ths).map(th => th.offsetWidth);
-
-    newWidths.forEach((w, index) => (this.columns[index].width = w + "px"));
+    // :( for big data
+    setTimeout(() => {
+      const ths = this.$el.querySelectorAll("tr:first-child > td");
+      const newWidths = Array.from(ths).map(th => th.offsetWidth);
+      newWidths.forEach((w, index) => (this.columns[index].width = w + "px"));
+    }, 100);
   },
 
   methods: {
